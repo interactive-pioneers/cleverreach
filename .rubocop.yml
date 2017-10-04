@@ -1,0 +1,14 @@
+AllCops:
+  TargetRubyVersion: 2.4.1
+
+Documentation:
+  Enabled: false
+
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context']
+
+Metrics/LineLength:
+  Max: 120
+
+Rails:
+  Enabled: true
