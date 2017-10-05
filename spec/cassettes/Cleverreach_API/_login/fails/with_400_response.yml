@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://rest.cleverreach.com/v2/login.json
+    body:
+      encoding: UTF-8
+      string: '{"client_id":"123456","login":"username","password":"password"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (darwin16.4.0 x86_64) ruby/2.4.1p111
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '63'
+      Host:
+      - rest.cleverreach.com
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Cache-Control:
+      - no-cache, must-revalidate
+      Content-Language:
+      - en
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 05 Oct 2017 21:15:29 GMT
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Server:
+      - nginx/1.1.19
+      X-Cr-I:
+      - api-eu1-i-06a8e3a7a846ae60b D=99056 t=1507238129093788
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Powered-By:
+      - Luracast Restler v3.0.0rc5
+      Content-Length:
+      - '69'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"error":{"code":400,"message":"Bad Request: Credentials not valid"}}'
+    http_version: 
+  recorded_at: Thu, 05 Oct 2017 21:15:29 GMT
+recorded_with: VCR 3.0.3

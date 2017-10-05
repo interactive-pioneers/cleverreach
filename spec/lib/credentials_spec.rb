@@ -33,4 +33,16 @@ describe Cleverreach::Credentials do
       end
     end
   end
+
+  describe '#to_json' do
+    it '' do
+      actual = Cleverreach::Credentials.new('123456', 'username', 'password')
+      expected = {
+        client_id: '123456',
+        login: 'username',
+        password: 'password'
+      }
+      expect(actual.to_json).to eq(expected.to_json)
+    end
+  end
 end

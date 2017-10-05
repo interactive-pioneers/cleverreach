@@ -10,6 +10,18 @@ module Cleverreach
       password ||= ENV['CLEVERREACH_PASSWORD']
 
       raise 'You must provide a Cleverreach clientId, username and password' unless client_id && username && password
+
+      @client_id = client_id
+      @username = username
+      @password = password
+    end
+
+    def to_json
+      {
+        client_id: client_id,
+        login: username,
+        password: password
+      }.to_json
     end
   end
 end

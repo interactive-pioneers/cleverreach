@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Cleverreach::API do
+describe Cleverreach::API, :vcr do
   describe '#initialize' do
     context 'fails' do
       it 'without credentials' do
@@ -19,6 +19,27 @@ describe Cleverreach::API do
         credentials = Cleverreach::Credentials.new('123456', 'username', 'password')
         actual = Cleverreach::API.new(credentials)
         expect(actual).to be_an_instance_of Cleverreach::API
+      end
+    end
+  end
+
+  describe '#login' do
+    VCR.use_cassette('login') do
+      context 'fails' do
+        it 'with 400 response' do
+          credentials = Cleverreach::Credentials.new('123456', 'username', 'password')
+          api = Cleverreach::API.new(credentials)
+          expect { api.login }.to raise_error RestClient::ExceptionWithResponse
+        end
+      end
+
+      context 'succeeds' do
+        it 'with auth token response' do
+          credentials = Cleverreach::Credentials.new('123456', 'user', 'pass')
+          api = Cleverreach::API.new(credentials)
+          api.login
+          expect(api.token).to eq('"ey123"')
+        end
       end
     end
   end
