@@ -17,5 +17,12 @@ module Cleverreach
       response = RestClient.post "#{host}login.json", credentials.to_json, content_type: :json, accept: :json
       @token = response.body
     end
+
+    def unsubscribe(email, group_id)
+      login
+      email = CGI.escape(email)
+      params = "?token=#{token.delete('"')}"
+      RestClient.delete "#{host}groups.json/#{group_id}/receivers/#{email}#{params}", content_type: :json, accept: :json
+    end
   end
 end

@@ -43,4 +43,24 @@ describe Cleverreach::API, :vcr do
       end
     end
   end
+
+  describe '#unsubscribe' do
+    VCR.use_cassette('unsubscribe') do
+      context 'fails' do
+        it 'with 404 response' do
+          credentials = Cleverreach::Credentials.new('123456', 'user', 'pass')
+          api = Cleverreach::API.new(credentials)
+          expect { api.unsubscribe('email@domain.de', '654321') }.to raise_error RestClient::ExceptionWithResponse
+        end
+      end
+
+      context 'succeeds' do
+        it 'with auth token response' do
+          credentials = Cleverreach::Credentials.new('123456', 'user', 'pass')
+          api = Cleverreach::API.new(credentials)
+          expect(api.unsubscribe('bruce@gotham.com', '654321')).to be_truthy
+        end
+      end
+    end
+  end
 end
