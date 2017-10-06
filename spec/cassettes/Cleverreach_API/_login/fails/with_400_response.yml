@@ -5,7 +5,7 @@ http_interactions:
     uri: https://rest.cleverreach.com/v2/login.json
     body:
       encoding: UTF-8
-      string: '{"client_id":"123456","login":"username","password":"password"}'
+      string: '{"client_id":"123456","login":"user","password":"pass"}'
     headers:
       Accept:
       - application/json
