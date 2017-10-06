@@ -19,6 +19,8 @@ module Cleverreach
     end
 
     def subscribe(email, group_id, source = '')
+      raise Cleverreach::Errors::ValidationError, "Invalid email: #{email}" unless Validator.valid_email?(email)
+
       login
       body = body_data(email, source)
       params = "?token=#{token.delete('"')}"
@@ -27,6 +29,8 @@ module Cleverreach
     end
 
     def unsubscribe(email, group_id)
+      raise Cleverreach::Errors::ValidationError, "Invalid email: #{email}" unless Validator.valid_email?(email)
+
       login
       email = CGI.escape(email)
       params = "?token=#{token.delete('"')}"

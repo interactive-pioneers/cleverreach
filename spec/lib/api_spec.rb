@@ -44,6 +44,11 @@ describe Cleverreach::API, :vcr do
   describe '#subscribe' do
     VCR.use_cassette('subscribe') do
       context 'fails' do
+        it 'with exception for invalid email' do
+          allow(Cleverreach::Validator).to receive(:valid_email?).and_return(false)
+          expect { api.subscribe('email@domain.de', '654322') }.to raise_error Cleverreach::Errors::ValidationError
+        end
+
         it 'with 405 response for invalid group' do
           expect { api.subscribe('email@domain.de', '654322') }.to raise_error RestClient::ExceptionWithResponse
         end
@@ -64,6 +69,11 @@ describe Cleverreach::API, :vcr do
   describe '#unsubscribe' do
     VCR.use_cassette('unsubscribe') do
       context 'fails' do
+        it 'with exception for invalid email' do
+          allow(Cleverreach::Validator).to receive(:valid_email?).and_return(false)
+          expect { api.unsubscribe('email@domain.de', '654322') }.to raise_error Cleverreach::Errors::ValidationError
+        end
+
         it 'with 404 response' do
           expect { api.unsubscribe('email@domain.de', '654321') }.to raise_error RestClient::ExceptionWithResponse
         end
