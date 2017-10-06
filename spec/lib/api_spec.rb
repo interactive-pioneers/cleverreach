@@ -44,6 +44,32 @@ describe Cleverreach::API, :vcr do
     end
   end
 
+  describe '#subscribe' do
+    VCR.use_cassette('subscribe') do
+      context 'fails' do
+        it 'with 405 response for invalid group' do
+          credentials = Cleverreach::Credentials.new('123456', 'user', 'pass')
+          api = Cleverreach::API.new(credentials)
+          expect { api.subscribe('email@domain.de', '654322') }.to raise_error RestClient::ExceptionWithResponse
+        end
+      end
+
+      context 'succeeds' do
+        it 'with 200 insert success' do
+          credentials = Cleverreach::Credentials.new('123456', 'user', 'pass')
+          api = Cleverreach::API.new(credentials)
+          expect(api.subscribe('bruce@gotham.com', '654321')).to be_truthy
+        end
+
+        it 'with 200 insert success including source' do
+          credentials = Cleverreach::Credentials.new('123456', 'user', 'pass')
+          api = Cleverreach::API.new(credentials)
+          expect(api.subscribe('bruce@gotham.de', '654321', 'rspec')).to be_truthy
+        end
+      end
+    end
+  end
+
   describe '#unsubscribe' do
     VCR.use_cassette('unsubscribe') do
       context 'fails' do

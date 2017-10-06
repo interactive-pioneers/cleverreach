@@ -18,6 +18,20 @@ module Cleverreach
       @token = response.body
     end
 
+    def subscribe(email, group_id, source = '')
+      login
+      body = {
+        'postdata' => [
+          {
+            'email' => email,
+            'source' => source
+          }
+        ]
+      }
+      uri = "#{host}groups.json/#{group_id}/receivers/insert?token=#{token.delete('"')}"
+      RestClient.post uri, body.to_json, content_type: :json, accept: :json
+    end
+
     def unsubscribe(email, group_id)
       login
       email = CGI.escape(email)
