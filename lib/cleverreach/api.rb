@@ -18,11 +18,11 @@ module Cleverreach
       @token = response.body
     end
 
-    def subscribe(email, group_id, source = '')
+    def subscribe(email, group_id, source = '', body = {})
       raise Cleverreach::Errors::ValidationError, "Invalid email: #{email}" unless Validator.valid_email?(email)
 
       login
-      body = body_data(email, source)
+      body = body_data(email, source, body)
       params = "?token=#{token.delete('"')}"
       uri = "#{host}groups.json/#{group_id}/receivers/insert#{params}"
       RestClient.post uri, body.to_json, content_type: :json, accept: :json
@@ -39,12 +39,13 @@ module Cleverreach
 
     private
 
-    def body_data(email, source)
+    def body_data(email, source, body)
       {
         'postdata' => [
           {
             'email' => email,
-            'source' => source
+            'source' => source,
+            "global_attributes": body,
           }
         ]
       }

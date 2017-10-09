@@ -62,6 +62,11 @@ describe Cleverreach::API, :vcr do
         it 'with 200 insert success including source' do
           expect(api.subscribe('bruce@gotham.de', '654321', 'rspec')).to be_truthy
         end
+
+        it 'with 200 insert success including body' do
+          body = { 'firstname' =>  'Firstname', 'lastname' => 'Lastname'}
+          expect(api.subscribe('bruce@gotham.de', '654321', nil, body)).to be_truthy
+        end
       end
     end
   end
