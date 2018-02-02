@@ -4,7 +4,9 @@ require 'spec_helper'
 
 describe Cleverreach::API, :vcr do
   let(:credentials) { Cleverreach::Credentials.new('123456', 'user', 'pass') }
+  let(:doidata) { Cleverreach::Doidata.new('123456', '127.0.0.1', 'localhost', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36') }
   let(:api) { Cleverreach::API.new(credentials) }
+  let(:api_with_doidata) { Cleverreach::API.new(credentials, doidata) }
 
   describe '#initialize' do
     context 'fails' do
@@ -15,11 +17,19 @@ describe Cleverreach::API, :vcr do
       it 'with invalid credentials type' do
         expect { Cleverreach::API.new('credentials') }.to raise_error
       end
+
+      it 'with invalid doidata type' do
+        expect { Cleverreach::API.new(credentials, 'doidata') }.to raise_error
+      end
     end
 
     context 'succeeds' do
-      it 'with credentials' do
+      it 'with credentials, without doidata' do
         expect(api).to be_an_instance_of Cleverreach::API
+      end
+
+      it 'with credentials, with doidata' do
+        expect(api_with_doidata).to be_an_instance_of Cleverreach::API
       end
     end
   end
@@ -67,6 +77,11 @@ describe Cleverreach::API, :vcr do
           body = { 'firstname' =>  'Firstname', 'lastname' => 'Lastname'}
           expect(api.subscribe('bruce@gotham.de', '654321', nil, body)).to be_truthy
         end
+
+        # @TODO test with doidata provided
+        # it 'with 200 insert success with doi email' do
+        #   expect(api_with_doidata.subscribe('bruce@gotham.com', '654321')).to be_truthy
+        # end
       end
     end
   end

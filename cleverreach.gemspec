@@ -8,8 +8,8 @@ require 'cleverreach/version'
 Gem::Specification.new do |spec|
   spec.name          = 'cleverreach'
   spec.version       = Cleverreach::VERSION
-  spec.authors       = ['Meinhard Gredig']
-  spec.email         = ['mgd@interactive-pioneers.de']
+  spec.authors       = ['Meinhard Gredig', 'Georg Meyer']
+  spec.email         = ['mgd@interactive-pioneers.de', 'gm@interactive-pioneers.de']
   spec.summary       = 'Ruby wrapper for Cleverreach REST-API.'
   spec.description   = 'Ruby wrapper for Cleverreach email marketing software REST-API.'
   spec.homepage      = 'https://github.com/interactive-pioneers/cleverreach'
