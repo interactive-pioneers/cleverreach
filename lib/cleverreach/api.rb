@@ -51,7 +51,7 @@ module Cleverreach
 
     def send_doi_email(email, group_id)
       params = "?token=#{token.delete('"')}"
-      uri = "#{@host}forms/#{@doidata.doi_form_id}/send/activate#{params}"
+      uri = "#{host}forms.json/#{@doidata.doi_form_id}/send/activate#{params}"
       body = @doidata.doi_data.merge({
         'email' => email,
         'groups_id' => group_id
