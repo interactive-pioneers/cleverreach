@@ -56,8 +56,12 @@ module Cleverreach
         'email' => email,
         'groups_id' => group_id
       })
-      abort body.inspect
-      # RestClient.post uri, body.to_json, content_type: :json, accept: :json
+
+      begin
+        RestClient.post uri, body.to_json, content_type: :json, accept: :json
+      rescue => error
+        abort error.inspect
+      end
     end
 
     def body_data(email, source, body)
