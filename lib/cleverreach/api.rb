@@ -60,8 +60,7 @@ module Cleverreach
       begin
         res = RestClient.post uri, body.to_json, content_type: :json, accept: :json
       rescue => error
-        res.inspect
-        abort error.inspect
+        abort res.inspect
       end
     end
 
