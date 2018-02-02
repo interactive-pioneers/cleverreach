@@ -69,6 +69,8 @@ module Cleverreach
         'postdata' => [
           {
             'email' => email,
+            'registered' => DateTime.now.to_formatted_s(:number),
+            'activated' => @doidata.nil?,
             'source' => source,
             "global_attributes": body,
           }
