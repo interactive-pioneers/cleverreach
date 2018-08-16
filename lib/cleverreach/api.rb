@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rest-client'
+require 'time'
 
 module Cleverreach
   class API
@@ -65,7 +66,7 @@ module Cleverreach
         'postdata' => [
           {
             'email' => email,
-            'registered' => Time.current.to_i,
+            'registered' => Time.now.to_i,
             'activated' => @doidata.nil?,
             'source' => source,
             "global_attributes": body,
