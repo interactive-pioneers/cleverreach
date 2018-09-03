@@ -18,7 +18,7 @@ module Cleverreach
     end
 
     def login
-      response = RestClient.post "#{host}login.json", credentials.to_json, content_type: :json, accept: :json
+      response = RestClient.post "#{host}login.json", credentials.to_json, content_type: :json, accept: :json, timeout: 30
       @token = response.body
     end
 
@@ -32,9 +32,9 @@ module Cleverreach
       uri = "#{host}groups.json/#{group_id}/receivers/insert#{params}"
       
       if @doidata.nil?
-        RestClient.post uri, body.to_json, content_type: :json, accept: :json
+        RestClient.post uri, body.to_json, content_type: :json, accept: :json, timeout: 30
       else
-        RestClient.post uri, body.to_json, content_type: :json, accept: :json
+        RestClient.post uri, body.to_json, content_type: :json, accept: :json, timeout: 30
         send_doi_email(email, group_id)
       end
     end
@@ -45,7 +45,7 @@ module Cleverreach
       login
       email = CGI.escape(email)
       params = "?token=#{token.delete('"')}"
-      RestClient.delete "#{host}groups.json/#{group_id}/receivers/#{email}#{params}", content_type: :json, accept: :json
+      RestClient.delete "#{host}groups.json/#{group_id}/receivers/#{email}#{params}", content_type: :json, accept: :json, timeout: 30
     end
 
     private
@@ -58,7 +58,7 @@ module Cleverreach
         'groups_id' => group_id
       })
 
-      RestClient.post uri, body.to_json, content_type: :json, accept: :json
+      RestClient.post uri, body.to_json, content_type: :json, accept: :json, timeout: 30
     end
 
     def body_data(email, source, body)
