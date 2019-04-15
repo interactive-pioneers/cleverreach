@@ -44,7 +44,7 @@ describe Cleverreach::API, :vcr do
 
       context 'succeeds' do
         it 'with auth token response' do
-          api.login
+          helper.login
           expect(api.token).to eq('"ey123"')
         end
       end

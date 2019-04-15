@@ -18,6 +18,10 @@ module Cleverreach
       @user_agent = user_agent
     end
 
+    def change_form(id)
+      @form_id = id
+    end
+
     def doi_form_id
       @form_id
     end
